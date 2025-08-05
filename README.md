@@ -1,8 +1,18 @@
 # SEO Boost API – Projeto de Curso
 
-Este repositório contém o projeto base para o curso **SEO Boost API**, onde você aprenderá a criar uma API REST com FastAPI, integração com banco de dados PostgreSQL, autenticação, chamadas a modelos de IA generativa e muito mais.
+Este repositório contém o projeto base para o curso **SEO Boost API**,
+onde você aprenderá a criar uma API REST com FastAPI,
+integração com banco de dados PostgreSQL,
+autenticação, chamadas a modelos de IA generativa e muito mais.
 
 ## Instruções para rodar
+
+Requisitos:
+
+- Python 3.11
+- Docker
+- Docker Compose
+- PostgreSQL
 
 1. Crie o ambiente virtual:
 
