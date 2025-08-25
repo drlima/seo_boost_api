@@ -1,0 +1,80 @@
+[tool.ruff]
+# Configs gerais (formatter + linter)
+line-length = 120
+preview = true
+src = ["app", "tests"]
+exclude = [
+  ".venv",
+  "venv",
+  "__pycache__",
+  "tests/__pycache__",
+]
+
+[tool.ruff.format]
+# Opções do formatador (usadas por `ruff format`)
+line-ending = "lf"  # opcional
+
+[tool.ruff.lint]
+# Conjuntos de regras (novo bloco no Ruff 0.6+)
+select = ["E", "F", "W", "B", "C", "S", "I"]
+ignore = ["E501"]  # já coberto por line-length
+
+[tool.ruff.lint.isort]
+# Organização de imports
+known-first-party = ["app"]
+combine-as-imports = true
+
+[tool.ruff.lint.per-file-ignores]
+# Ex.: permitir assert simples em testes
+"tests/*" = ["S101"]
+
+
+[tool.mypy]
+python_version = "3.12"
+
+# Padrão "quase estrito" — bom equilíbrio para FastAPI/SQLAlchemy/Pydantic v2
+strict = true
+
+# Em times/projetos reais, vale começar com true e ir reduzindo por lib
+ignore_missing_imports = true
+
+# Ajudam a pegar problemas cedo
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+no_implicit_optional = true
+show_error_codes = true
+pretty = true
+
+# Onde rodar
+files = ["app", "tests"]
+
+# Evitar ruído de migrações/venv
+exclude = [
+  "\\.venv",
+  "^venv",
+  "__pycache__",
+  "^migrations",
+]
+
+[tool.pytest.ini_options]
+minversion = "8.0"
+testpaths = ["tests"]
+
+# Opções padrão
+addopts = [
+  "-q",                # saída silenciosa
+  "--strict-markers",  # falha se houver marks não registrados
+]
+
+# Suporte a testes async com @pytest.mark.asyncio
+asyncio_mode = "auto"
+
+# Registra a mark para evitar warnings
+markers = [
+  "asyncio: mark a test as asyncio-based",
+]
+
+# (Opcional) logging em tempo real
+log_cli = true
+log_cli_level = "DEBUG"
