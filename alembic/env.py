@@ -16,7 +16,7 @@ config = context.config
 
 # Sobrescreve URL com .env / Settings, se houver
 if config.get_main_option("sqlalchemy.url") is None:
-    config.set_main_option("sqlalchemy.url", settings.sync_database_url)
+    config.set_main_option("sqlalchemy.url", settings.database_url)
 
 # Loggers
 if config.config_file_name is not None:

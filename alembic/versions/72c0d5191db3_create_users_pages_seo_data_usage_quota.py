@@ -1,19 +1,18 @@
 """create users pages seo data usage quota
 
-Revision ID: 678e6154a485
-Revises: 
-Create Date: 2025-08-25 19:09:56.435043
+Revision ID: 72c0d5191db3
+Revises:
+Create Date: 2025-08-25 19:18:20.671199
 
 """
 from typing import Sequence, Union
 
-from alembic import op
 import sqlalchemy as sa
 import sqlmodel
-
+from alembic import op
 
 # revision identifiers, used by Alembic.
-revision: str = '678e6154a485'
+revision: str = '72c0d5191db3'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
