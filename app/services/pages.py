@@ -1,13 +1,12 @@
 from typing import Iterable
 
-from sqlalchemy import select
-from sqlalchemy.orm import Session
+from sqlmodel import Session, select
 
 from app.models.page import Page
 from app.schemas.page import PageCreate
 
 
-def create_page(db: Session, data: PageCreate) -> Page:
+async def create_page(db: Session, data: PageCreate) -> Page:
     page = Page(title=data.title, content=data.content)
     db.add(page)
     db.commit()
@@ -15,7 +14,7 @@ def create_page(db: Session, data: PageCreate) -> Page:
     return page
 
 
-def list_pages(
+async def list_pages(
     db: Session,
     q: str | None = None,
     limit: int = 50,
@@ -25,10 +24,9 @@ def list_pages(
     stmt = select(Page)
     if q:
         # filtro simples por título; pode trocar para ilike no Postgres
-        stmt = stmt.where(Page.title.contains(q))
-    if order_desc:
-        stmt = stmt.order_by(Page.created_at.desc())
+        stmt = stmt.where(Page.title.contains(q))  # type: ignore[attr-defined]
     else:
-        stmt = stmt.order_by(Page.created_at.asc())
+        stmt = stmt.order_by(Page.created_at.asc())    # type: ignore[attr-defined]
     stmt = stmt.offset(offset).limit(min(limit, 200))
-    return db.execute(stmt).scalars().all()
+    result = db.exec(stmt)
+    return result.all()

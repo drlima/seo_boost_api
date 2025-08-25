@@ -2,15 +2,16 @@ from contextlib import asynccontextmanager
 from typing import AsyncGenerator
 
 from fastapi import FastAPI
+from sqlmodel import SQLModel
 
-from .db import Base, engine
+from .db import engine
 from .models import page  # noqa: F401
-from .routes.pages import router as pages_router
+from .routes.pages import pages_router as pages_router
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
-    Base.metadata.create_all(bind=engine)
+    SQLModel.metadata.create_all(bind=engine)
     yield
 
 
