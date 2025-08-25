@@ -1,13 +1,12 @@
-from sqlalchemy import DateTime, Integer, String, Text, func
-from sqlalchemy.orm import Mapped, mapped_column
+from datetime import datetime
 
-from app.db import Base
+from sqlmodel import Field, SQLModel
 
 
-class Page(Base):
+class Page(SQLModel, table=True):
     __tablename__ = "pages"
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
-    title: Mapped[str] = mapped_column(String(255), nullable=False, index=True)
-    content: Mapped[str | None] = mapped_column(Text, nullable=True)
-    created_at: Mapped["DateTime"] = mapped_column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+    id: int = Field(primary_key=True, index=True)
+    title: str = Field(max_length=255, nullable=False, index=True)
+    content: str = Field(nullable=True)
+    created_at: datetime = Field(default_factory=lambda: datetime.now(), nullable=False)
