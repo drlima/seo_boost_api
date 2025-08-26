@@ -9,6 +9,11 @@ class Settings(BaseSettings):
     db_password: str = "seo"  # noqa: S105
     db_name: str = "seo_boost"
 
+    # coloque via .env ou env varem produção
+    SECRET_KEY: str = "change-me"  # noqa: S105
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24
+    JWT_ALGORITHM: str = "HS256"
+
     model_config = SettingsConfigDict(
         env_file=".env",
         case_sensitive=False,
