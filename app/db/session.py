@@ -1,4 +1,3 @@
-from contextlib import contextmanager
 from typing import Generator
 
 from sqlmodel import Session, create_engine
@@ -12,7 +11,6 @@ engine = create_engine(
 )
 
 
-@contextmanager
 def get_session() -> Generator[Session, None, None]:
     with Session(engine) as session:
         yield session

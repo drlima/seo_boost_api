@@ -12,6 +12,11 @@ class PageCreate(PageBase):
     pass
 
 
+class PageUpdate(BaseModel):
+    title: str | None = None
+    content: str | None = None
+
+
 class PageResponse(PageBase):
     id: int
     created_at: datetime

@@ -15,5 +15,5 @@ class Page(SQLModel, table=True):
     content: str = Field(nullable=True)
     created_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), nullable=False)
 
-    owner_id: int = Field(foreign_key="users.id", nullable=True)
+    owner_id: int = Field(foreign_key="users.id", nullable=True, index=True)
     owner: "User" = Relationship(back_populates="pages")
