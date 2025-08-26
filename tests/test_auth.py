@@ -1,11 +1,7 @@
 from fastapi.testclient import TestClient
 
-from app.main import app
 
-client = TestClient(app)
-
-
-def test_signup_and_login() -> None:
+def test_signup_and_login(client: TestClient) -> None:
     # signup
     r = client.post("/users", json={"email": "a@a.com", "password": "123456"})
     assert r.status_code == 201

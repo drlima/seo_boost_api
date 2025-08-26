@@ -12,9 +12,10 @@ from app.models.user import User
 security = HTTPBearer()
 
 session_dependency = Annotated[Session, Depends(get_session)]
+credentials_dependency = Annotated[HTTPBearer, Depends(security)]
 
 
-def get_current_user(session: session_dependency, credentials: HTTPBearer = Depends(security)) -> User:
+def get_current_user(session: session_dependency, credentials: credentials_dependency) -> User:
     payload = decode_token(credentials.credentials)
     if not payload or "sub" not in payload:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")

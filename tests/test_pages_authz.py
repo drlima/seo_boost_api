@@ -1,23 +1,13 @@
+from typing import Callable
+
 from fastapi.testclient import TestClient
 
-from app.main import app
-
-client = TestClient(app)
+from tests.utils import create_user_and_token, auth_header
 
 
-def auth_header(token: str) -> dict[str, str]:
-    return {"Authorization": f"Bearer {token}"}
-
-
-def create_user_and_token(email: str) -> str:
-    client.post("/users", json={"email": email, "password": "123456"})
-    r = client.post("/login", json={"email": email, "password": "123456"})
-    return r.json()["access_token"]  # type: ignore[no-any-return]
-
-
-def test_pages_by_owner_only() -> None:
-    t1 = create_user_and_token("u1@test.com")
-    t2 = create_user_and_token("u2@test.com")
+def test_pages_by_owner_only(client: TestClient) -> None:
+    t1 = create_user_and_token(client, "u1@test.com")
+    t2 = create_user_and_token(client, "u2@test.com")
 
     # user1 cria
     r = client.post("/pages", json={"title": "t", "content": "c"}, headers=auth_header(t1))

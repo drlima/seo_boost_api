@@ -1,15 +1,9 @@
+from typing import Callable
+
 import pytest
 from fastapi.testclient import TestClient
 
-
-def auth_header(token: str) -> dict[str, str]:
-    return {"Authorization": f"Bearer {token}"}
-
-
-def create_user_and_token(client: TestClient, email: str) -> str:
-    client.post("/users", json={"email": email, "password": "123456"})
-    r = client.post("/login", json={"email": email, "password": "123456"})
-    return r.json()["access_token"]  # type: ignore[no-any-return]
+from tests.utils import create_user_and_token, auth_header
 
 
 @pytest.mark.asyncio
